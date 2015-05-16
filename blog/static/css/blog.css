@@ -13,6 +13,10 @@
 
 .content {
     margin-left: 40px;
+    background: url("/static/images/smoke.gif"); 
+    background-position: right top;
+    background-repeat: repeat-y;	
+    
 }
 
 h1, h2, h3, h4 {
