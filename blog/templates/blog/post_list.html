@@ -6,7 +6,7 @@
                     </div>
                     <h1><a href="{% url 'blog.views.post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
 
-                    <p>{{ post.text|linebreaks }}</p>
+                    <p>{{ post.text|safe|linebreaks }}</p>
                 </div>
         
       <h3 class="archive"><a href="/post/archive/1" > Archive</a></h3> 
