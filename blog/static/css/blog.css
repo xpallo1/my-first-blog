@@ -15,7 +15,8 @@
     margin-left: 40px;
     background: url("/static/images/smoke.gif"); 
     background-position: right top;
-    background-repeat: repeat-y;	
+    background-repeat: repeat-y;
+    background-color: #FEFEFF;	
     
 }
 
