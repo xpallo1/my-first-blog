@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .forms import PostForm
 from .models import Post
+from math import ceil 
 
 def post_new(request):
     if request.method == "POST":
@@ -16,9 +17,13 @@ def post_new(request):
     else:
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
+ 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by("published_date")
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    #posts = Post.objects.filter(published_date__lte=timezone.now()).order_by("published_date")
+    post = Post.objects.filter(published_date__lte=timezone.now()).order_by("published_date").first()
+    return render(request, 'blog/post_list.html', {'post': post})
+    # render(request, 'blog/post_list.html', {'posts': posts})
+ 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
@@ -35,4 +40,12 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+def post_archive(request, page):    
+    page=int(page)-1
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by("published_date")[5*page:5*page+5] 
+    posts_count = Post.objects.filter(published_date__lte=timezone.now()).order_by("published_date").count()
+    pages = ceil(posts_count/5)
+    pages= range(1, pages+1)
+    return render(request, 'blog/post_archive.html', {'posts': posts, "posts_count": posts_count, "pages": pages})
 

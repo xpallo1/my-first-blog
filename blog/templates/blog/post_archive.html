@@ -1,14 +1,18 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+    {% for post in posts %}
                 <div class="post">
                     <div class="date">
                         {{ post.published_date }}
                     </div>
                     <h1><a href="{% url 'blog.views.post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
 
-                    <p>{{ post.text|linebreaks }}</p>
+                 
                 </div>
-        
-      <h3 class="archive"><a href="/post/archive/1" > Archive</a></h3> 
+         
+    {% endfor %}
+    celkem {{posts_count}} příspěvků <br> stránky:
+    {% for page in pages %} 
+        <a href="{% url 'blog.views.post_archive' page=page %}">{{ page }}</a>
+    {% endfor %}
 {% endblock content %}
-       
